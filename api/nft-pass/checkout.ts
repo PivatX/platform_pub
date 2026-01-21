@@ -33,7 +33,7 @@ type PostError = {
   error: string;
 };
 
-async function createNFTTransaction(account: PublicKey): Promise<PostResponse> {
+async function createNFTTransaction(account: PublicKey, preSigned: boolean = false): Promise<PostResponse> {
   const ENDPOINT = getEndpoint();
   const METADATA_URI = getMetadataUri();
   const PRICE_USDC = getPriceUsdc();
@@ -42,6 +42,7 @@ async function createNFTTransaction(account: PublicKey): Promise<PostResponse> {
 
   console.log('=== Starting NFT Transaction Creation ===');
   console.log('Buyer account:', account.toString());
+  console.log('Pre-signed mode:', preSigned);
 
   const shopPrivateKey = process.env.SHOP_PRIVATE_KEY;
   if (!shopPrivateKey) {
@@ -154,6 +155,14 @@ async function createNFTTransaction(account: PublicKey): Promise<PostResponse> {
   transaction.recentBlockhash = latestBlockhash.blockhash;
   transaction.lastValidBlockHeight = latestBlockhash.lastValidBlockHeight;
 
+  // If preSigned (for Solana Pay), sign with shop and mint FIRST
+  // User will sign last in their wallet
+  if (preSigned) {
+    console.log('Pre-signing with shop and mint keypairs for Solana Pay...');
+    transaction.partialSign(shopKeypair);
+    transaction.partialSign(mintKeypair);
+  }
+
   const serialized = transaction.serialize({ requireAllSignatures: false });
   const base64 = serialized.toString('base64');
 
@@ -211,7 +220,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'GET') {
     return res.json({
       label: 'Pivat Platform',
-      icon: 'https://app.pivat.io/logo/logo_single.png',
+      icon: 'https://app.pivat.xyz/logo.png',
     });
   }
 
@@ -220,6 +229,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const body = req.body;
 
       if ('signedTransaction' in body) {
+        // Web app flow: User signed first, now add shop + mint signatures
         const { signedTransaction, account } = body;
         if (!signedTransaction || !account) {
           return res.status(400).json({ error: 'Missing required fields' });
@@ -231,7 +241,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         if (!account) {
           return res.status(400).json({ error: 'No account provided' });
         }
-        const result = await createNFTTransaction(new PublicKey(account));
+        
+        // Detect if this is Solana Pay request (simple heuristic: no additional fields)
+        // Solana Pay needs pre-signed transaction (shop + mint sign first)
+        const isSolanaPay = Object.keys(body).length === 1;
+        
+        const result = await createNFTTransaction(new PublicKey(account), isSolanaPay);
         return res.json(result);
       }
     } catch (error: unknown) {

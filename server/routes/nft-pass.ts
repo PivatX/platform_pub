@@ -61,7 +61,8 @@ router.get('/checkout', (req: Request, res: Response<GetResponse>) => {
 });
 
 async function createNFTTransaction(
-  account: PublicKey
+  account: PublicKey,
+  preSigned: boolean = false
 ): Promise<PostResponse> {
   const ENDPOINT = getEndpoint();
   const METADATA_URI = getMetadataUri();
@@ -272,9 +273,17 @@ async function createNFTTransaction(
   transaction.recentBlockhash = latestBlockhash.blockhash;
   transaction.lastValidBlockHeight = latestBlockhash.lastValidBlockHeight;
 
-  console.log('Transaction created (unsigned)');
+  // If preSigned (for Solana Pay), sign with shop and mint FIRST
+  // User will sign last in their wallet
+  if (preSigned) {
+    console.log('Pre-signing with shop and mint keypairs for Solana Pay...');
+    transaction.partialSign(shopKeypair);
+    transaction.partialSign(mintKeypair);
+  } else {
+    console.log('Transaction created (unsigned) - user will sign first');
+  }
 
-  // Serialize transaction (unsigned)
+  // Serialize transaction
   const serialized = transaction.serialize({
     requireAllSignatures: false,
   });
@@ -404,9 +413,14 @@ router.post(
             .json({ error: 'No account provided' } as PostError);
         }
 
+        // Detect if this is Solana Pay request (simple heuristic: no additional fields)
+        const isSolanaPay = Object.keys(body).length === 1;
+
         console.log('Creating transaction for account:', account);
+        console.log('Solana Pay mode:', isSolanaPay);
         const mintOutputData = await createNFTTransaction(
-          new PublicKey(account)
+          new PublicKey(account),
+          isSolanaPay
         );
         console.log('Transaction created successfully');
 
