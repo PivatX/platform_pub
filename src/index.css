@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Pivat Enterprise Design System */
+
+@layer base {
+  :root {
+    /* Neutral professional palette */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Deep professional blue-gray */
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 214 32% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 214 32% 91%;
+    --accent-foreground: 222 47% 11%;
+
+    /* Success/Compliant green */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    /* Enterprise accent - subtle teal */
+    --enterprise: 199 89% 48%;
+    --enterprise-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 47% 11%;
+
+    --radius: 0.5rem;
+
+    /* Custom enterprise variables */
+    --glass-bg: 0 0% 100% / 0.8;
+    --glass-border: 214 32% 91% / 0.5;
+    --wireframe-color: 222 47% 11% / 0.1;
+    --glow-primary: 222 47% 11% / 0.15;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --success: 142 76% 42%;
+    --success-foreground: 0 0% 100%;
+
+    --enterprise: 199 89% 58%;
+    --enterprise-foreground: 222 47% 5%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 212 27% 84%;
+
+    --glass-bg: 222 47% 8% / 0.8;
+    --glass-border: 217 33% 25% / 0.5;
+    --wireframe-color: 210 40% 98% / 0.08;
+    --glow-primary: 199 89% 58% / 0.15;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/80 dark:bg-card/80 backdrop-blur-xl border border-border/50;
+  }
+
+  /* Enterprise gradient backgrounds */
+  .bg-hero-dark {
+    @apply bg-gradient-to-b from-background via-background to-muted/50;
+  }
+
+  /* Wireframe grid background */
+  .wireframe-grid {
+    background-image: 
+      linear-gradient(hsl(var(--wireframe-color)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--wireframe-color)) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Subtle glow effect */
+  .glow-primary {
+    box-shadow: 0 0 80px 40px hsl(var(--glow-primary));
+  }
+
+  /* Enterprise card style */
+  .enterprise-card {
+    @apply bg-card border border-border rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  /* Status badge pulse */
+  .status-pulse {
+    @apply relative;
+  }
+  
+  .status-pulse::before {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-success/30 animate-ping;
+  }
+}
+
+@layer utilities {
+  /* Text gradient utility */
+  .text-gradient-enterprise {
+    @apply bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-200 ease-out;
+  }
+}

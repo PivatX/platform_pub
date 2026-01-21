@@ -1,0 +1,73 @@
+{
+    "name": "Pivat Professional Platform Pass",
+    "symbol": "PIVAT",
+    "description": "Professional subscription pass for Pivat's enterprise-grade token infrastructure platform. This NFT grants holders access to 5 token deployments, full compliance framework, priority support (24h response), multi-signature wallets, 90-day transaction history, REST API access, team management (3 seats), and comprehensive compliance reporting. Secure, compliant, and verified infrastructure for your blockchain projects.",
+    "image": "https://emerald-magnetic-planarian-867.mypinata.cloud/ipfs/bafkreiccl6zvirsqfl6jogan6go7yrgxxc6gst7r2q5fqwsdx4g4kdef3y",
+    "external_url": "https://pivat.xyz",
+    "attributes": [
+      {
+        "trait_type": "Subscription Tier",
+        "value": "Professional"
+      },
+      {
+        "trait_type": "Token Deployments",
+        "value": "5"
+      },
+      {
+        "trait_type": "Compliance Framework",
+        "value": "Full Access"
+      },
+      {
+        "trait_type": "Support Level",
+        "value": "Priority (24h)"
+      },
+      {
+        "trait_type": "Multi-Signature Wallets",
+        "value": "Enabled"
+      },
+      {
+        "trait_type": "Transaction History",
+        "value": "90 Days"
+      },
+      {
+        "trait_type": "API Access",
+        "value": "REST API"
+      },
+      {
+        "trait_type": "Team Seats",
+        "value": "3"
+      },
+      {
+        "trait_type": "Security Level",
+        "value": "SOC 2 Compliant"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "Genesis"
+      },
+      {
+        "trait_type": "Platform",
+        "value": "Pivat Infrastructure"
+      }
+    ],
+    "properties": {
+      "files": [
+        {
+          "uri": "https://emerald-magnetic-planarian-867.mypinata.cloud/ipfs/bafkreiccl6zvirsqfl6jogan6go7yrgxxc6gst7r2q5fqwsdx4g4kdef3y",
+          "type": "image/png",
+          "cdn": true
+        }
+      ],
+      "category": "image",
+      "creators": [
+        {
+          "address": "5RoDDhFND4XXrBgBPzZaDTR8gADQfHrSngpRmwvYuVgJ",
+          "share": 100
+        }
+      ]
+    },
+    "collection": {
+      "name": "Pivat Platform Passes",
+      "family": "Pivat Professional"
+    }
+  } 
