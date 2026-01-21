@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure wallet adapter modal appears above dialogs */
+.wallet-adapter-modal-wrapper {
+  z-index: 99999 !important;
+}
+
+.wallet-adapter-modal-overlay {
+  z-index: 99998 !important;
+}
+
 /* Pivat Enterprise Design System */
 
 @layer base {

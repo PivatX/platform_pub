@@ -25,7 +25,7 @@ const plans = [
   {
     name: "Professional",
     description: "For growing projects with compliance needs",
-    price: "39 USDC",
+    price: "79 USDC",
     priceNote: "+ 0.025 SOL (rent + fees)",
     cta: "Subscribe Now",
     ctaHref: "/subscribe?plan=professional",

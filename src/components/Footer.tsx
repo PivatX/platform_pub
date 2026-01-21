@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import { Github } from "lucide-react";
 
-const footerLinks = {
+type FooterLink = {
+  label: string;
+  href: string;
+  comingSoon?: boolean;
+};
+
+const footerLinks: {
+  product: FooterLink[];
+  company: FooterLink[];
+  legal: FooterLink[];
+} = {
   product: [
     { label: "Features", href: "/#features" },
     { label: "Security", href: "/security" },
@@ -9,13 +20,12 @@ const footerLinks = {
     { label: "FAQ", href: "/#faq" },
   ],
   company: [
-    { label: "About", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "mailto:hello@Pivat.io" },
+    { label: "About", href: "/about" },
+    { label: "Blog", href: "#", comingSoon: true },
+    { label: "Contact", href: "mailto:info@pivat.xyz" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
     { label: "Security", href: "/security" },
   ],
@@ -69,9 +79,12 @@ export function Footer() {
                   ) : (
                     <Link
                       to={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
                     >
                       {link.label}
+                      {link.comingSoon && (
+                        <span className="text-xs px-2 py-0.5 bg-muted rounded-full">Coming Soon</span>
+                      )}
                     </Link>
                   )}
                 </li>
@@ -102,9 +115,20 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Pivat. All rights reserved.
           </p>
-          <p className="text-sm text-muted-foreground">
-            Built for legitimate projects only.
-          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/PivatX/platform_pub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <p className="text-sm text-muted-foreground">
+              Built for legitimate projects only.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

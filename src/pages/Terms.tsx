@@ -150,8 +150,8 @@ export default function Terms() {
               <h2 className="text-2xl font-bold mb-4">9. Contact</h2>
               <p className="text-muted-foreground leading-relaxed">
                 For questions about these Terms of Service, please contact us at{" "}
-                <a href="mailto:legal@Pivat.io" className="text-foreground underline">
-                  legal@Pivat.io
+                <a href="mailto:legal@pivat.xyz" className="text-foreground underline">
+                  legal@pivat.xyz
                 </a>
                 .
               </p>
